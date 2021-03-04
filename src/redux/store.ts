@@ -1,4 +1,4 @@
 import { createStore } from 'redux';
-import trackerReducer from './trackersReducer';
+import rootReducer from './rootReducer';
 
-export const store = createStore(trackerReducer);
+export const store = createStore(rootReducer);
