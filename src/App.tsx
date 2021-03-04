@@ -37,10 +37,14 @@ const App: FC<AppProps> = ({
       <Form addTracker={addTracker} />
       <hr />
       {trackers.map((tracker: any) => {
-        const { name, id, isTicking, time } = tracker;
         return (
-          <Tracker key={id} />
-          // <Tracker name={name} key={id} time={time} isTicking={isTicking} />
+          <Tracker
+            key={tracker.id}
+            settings={tracker}
+            stop={stopTracker}
+            resume={resumeTracker}
+            remove={deleteTracker}
+          />
         );
       })}
     </div>

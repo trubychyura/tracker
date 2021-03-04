@@ -7,7 +7,7 @@ import {
 import { ITracker, TrackerActionType } from '../types';
 
 const initialState: Array<ITracker> = [
-  { id: 0, name: 'first tracker', time: 0, isTicking: true },
+  { id: 0, name: 'first tracker', time: 0, isTicking: false },
 ];
 
 const trackersReducer = (
@@ -26,7 +26,7 @@ const trackersReducer = (
     case STOP_TRACKER:
       return [...state].map((tracker) => {
         if (tracker.id === action.payload.id) {
-          return { ...tracker, isTicking: false, time: action.payload.time };
+          return { ...tracker, isTicking: false };
         }
         return tracker;
       });

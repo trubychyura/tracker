@@ -4,10 +4,7 @@ import {
   RESUME_TRACKER,
   STOP_TRACKER,
 } from './constants';
-import {
-  TrackerActionType
-} from './../types';
-
+import { TrackerActionType } from './../types';
 
 export const addTracker = (name: string): TrackerActionType => ({
   type: ADD_TRACKER,
@@ -16,7 +13,7 @@ export const addTracker = (name: string): TrackerActionType => ({
   },
 });
 
-export const stopTracker = (time: number, id: number): TrackerActionType => ({
+export const stopTracker = (id: number, time: number): TrackerActionType => ({
   type: STOP_TRACKER,
   payload: {
     time,
