@@ -1,9 +1,8 @@
 import {
   ADD_TRACKER,
   DELETE_TRACKER,
-  RESUME_TRACKER,
-  STOP_TRACKER,
   SAVE_TIME_TRACKER,
+  TOGGLE_TRACKER,
 } from './constants';
 import { ITracker, TrackerActionType } from '../types';
 import { load } from 'redux-localstorage-simple';
@@ -26,17 +25,10 @@ const trackersReducer = (
         time: 0,
       };
       return [...state, newTracker];
-    case STOP_TRACKER:
+    case TOGGLE_TRACKER:
       return [...state].map((tracker) => {
         if (tracker.id === action.payload.id) {
-          return { ...tracker, isTicking: false };
-        }
-        return tracker;
-      });
-    case RESUME_TRACKER:
-      return [...state].map((tracker) => {
-        if (tracker.id === action.payload.id) {
-          return { ...tracker, isTicking: true };
+          return { ...tracker, isTicking: !tracker.isTicking };
         }
         return tracker;
       });

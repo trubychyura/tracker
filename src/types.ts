@@ -1,8 +1,7 @@
 import {
   ADD_TRACKER,
   DELETE_TRACKER,
-  RESUME_TRACKER,
-  STOP_TRACKER,
+  TOGGLE_TRACKER,
   SAVE_TIME_TRACKER,
 } from './redux/constants';
 
@@ -20,16 +19,8 @@ interface IAddTrackerAction {
   };
 }
 
-interface IStopTrackerAction {
-  type: typeof STOP_TRACKER;
-  payload: {
-    time: number;
-    id: number;
-  };
-}
-
-interface IResumeTrackerAction {
-  type: typeof RESUME_TRACKER;
+interface IToggleTrackerAction {
+  type: typeof TOGGLE_TRACKER;
   payload: {
     id: number;
   };
@@ -52,7 +43,6 @@ interface ISaveTimeAction {
 
 export type TrackerActionType =
   | IAddTrackerAction
-  | IStopTrackerAction
-  | IResumeTrackerAction
   | IDeleteTrackerAction
+  | IToggleTrackerAction
   | ISaveTimeAction;

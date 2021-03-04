@@ -2,20 +2,13 @@ import { FC, useEffect, useState } from 'react';
 import { ITracker, TrackerActionType } from '../types';
 
 interface TrackerProps {
-  stop: (id: number, time: number) => TrackerActionType;
-  resume: (id: number) => TrackerActionType;
   remove: (id: number) => TrackerActionType;
+  toggle: (id: number) => TrackerActionType;
   saveTime: (time: number, id: number) => TrackerActionType;
   settings: ITracker;
 }
 
-const Tracker: FC<TrackerProps> = ({
-  settings,
-  stop,
-  resume,
-  remove,
-  saveTime,
-}) => {
+const Tracker: FC<TrackerProps> = ({ settings, remove, toggle, saveTime }) => {
   const { name, id, isTicking, time } = settings;
 
   const [localTime, setTime] = useState(time);
@@ -52,12 +45,10 @@ const Tracker: FC<TrackerProps> = ({
     <div>
       <span>Name: {name}</span>
       <span>Time: {localTime}</span>
-      {isTicking ? (
-        <button onClick={() => stop(id, localTime)}>Stop</button>
-      ) : (
-        <button onClick={() => resume(id)}>Resume</button>
-      )}
-      <button onClick={() => remove(id)}>Delete</button>
+      <button onClick={() => toggle(id)}>
+        {isTicking ? 'stop' : 'resume'}
+      </button>
+      <button onClick={() => remove(id)}>delete</button>
     </div>
   );
 };

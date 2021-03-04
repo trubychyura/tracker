@@ -6,10 +6,9 @@ import Tracker from './components/Tracker';
 import { ITracker } from './types';
 import {
   addTracker,
-  stopTracker,
-  resumeTracker,
   deleteTracker,
   saveTime,
+  toggleTracker,
 } from './redux/actionCreator';
 import { TrackerActionType } from './types';
 
@@ -20,19 +19,17 @@ interface RootState {
 interface AppProps {
   trackers: ITracker[];
   addTracker: (name: string) => TrackerActionType;
-  stopTracker: (id: number, time: number) => TrackerActionType;
-  resumeTracker: (id: number) => TrackerActionType;
   deleteTracker: (id: number) => TrackerActionType;
+  toggleTracker: (id: number) => TrackerActionType;
   saveTime: (time: number, id: number) => TrackerActionType;
 }
 
 const App: FC<AppProps> = ({
   trackers,
   addTracker,
-  stopTracker,
-  resumeTracker,
   deleteTracker,
   saveTime,
+  toggleTracker,
 }) => {
   return (
     <div className='App'>
@@ -44,9 +41,8 @@ const App: FC<AppProps> = ({
           <Tracker
             key={tracker.id}
             settings={tracker}
-            stop={stopTracker}
-            resume={resumeTracker}
             remove={deleteTracker}
+            toggle={toggleTracker}
             saveTime={saveTime}
           />
         );
@@ -57,8 +53,7 @@ const App: FC<AppProps> = ({
 
 export default connect((state: RootState) => ({ trackers: state.trackers }), {
   addTracker,
-  stopTracker,
-  resumeTracker,
   deleteTracker,
   saveTime,
+  toggleTracker,
 })(App);
