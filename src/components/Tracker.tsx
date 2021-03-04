@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ITracker, TrackerActionType } from '../types';
 
 interface TrackerProps {
@@ -7,6 +7,8 @@ interface TrackerProps {
   remove: (id: number) => TrackerActionType;
   settings: ITracker;
 }
+
+
 
 const Tracker: FC<TrackerProps> = ({ settings, stop, resume, remove }) => {
   const { name, id, isTicking, time } = settings;

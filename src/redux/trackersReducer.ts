@@ -5,11 +5,13 @@ import {
   STOP_TRACKER,
 } from './constants';
 import { ITracker, TrackerActionType } from '../types';
+import { load } from 'redux-localstorage-simple';
 
-const initialState: Array<ITracker> = [
-  { id: 0, name: 'first tracker', time: 0, isTicking: false },
-];
+const savedStore: any = load({ namespace: 'tracker' });
+const initialState: Array<ITracker> =
+  savedStore && savedStore.trackers ? savedStore.trackers : [];
 
+console.log(initialState, 'trackers');
 const trackersReducer = (
   state = initialState,
   action: TrackerActionType,
