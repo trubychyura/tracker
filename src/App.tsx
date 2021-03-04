@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import Form from './components/Form';
 import Tracker from './components/Tracker';
 
@@ -13,4 +14,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(() => ({}), {})(App);
