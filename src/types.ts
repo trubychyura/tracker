@@ -3,6 +3,7 @@ import {
   DELETE_TRACKER,
   RESUME_TRACKER,
   STOP_TRACKER,
+  SAVE_TIME_TRACKER,
 } from './redux/constants';
 
 export interface ITracker {
@@ -41,8 +42,17 @@ interface IDeleteTrackerAction {
   };
 }
 
+interface ISaveTimeAction {
+  type: typeof SAVE_TIME_TRACKER;
+  payload: {
+    id: number;
+    time: number;
+  };
+}
+
 export type TrackerActionType =
   | IAddTrackerAction
   | IStopTrackerAction
   | IResumeTrackerAction
-  | IDeleteTrackerAction;
+  | IDeleteTrackerAction
+  | ISaveTimeAction;

@@ -3,6 +3,7 @@ import {
   DELETE_TRACKER,
   RESUME_TRACKER,
   STOP_TRACKER,
+  SAVE_TIME_TRACKER,
 } from './constants';
 import { ITracker, TrackerActionType } from '../types';
 import { load } from 'redux-localstorage-simple';
@@ -41,6 +42,13 @@ const trackersReducer = (
       });
     case DELETE_TRACKER:
       return [...state].filter((tracker) => tracker.id !== action.payload.id);
+    case SAVE_TIME_TRACKER:
+      return [...state].map((tracker) => {
+        if (tracker.id === action.payload.id) {
+          return { ...tracker, time: action.payload.time };
+        }
+        return tracker;
+      });
     default:
       return state;
   }

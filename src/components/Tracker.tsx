@@ -5,12 +5,17 @@ interface TrackerProps {
   stop: (id: number, time: number) => TrackerActionType;
   resume: (id: number) => TrackerActionType;
   remove: (id: number) => TrackerActionType;
+  saveTime: (time: number, id: number) => TrackerActionType;
   settings: ITracker;
 }
 
-
-
-const Tracker: FC<TrackerProps> = ({ settings, stop, resume, remove }) => {
+const Tracker: FC<TrackerProps> = ({
+  settings,
+  stop,
+  resume,
+  remove,
+  saveTime,
+}) => {
   const { name, id, isTicking, time } = settings;
 
   const [localTime, setTime] = useState(time);
@@ -28,12 +33,20 @@ const Tracker: FC<TrackerProps> = ({ settings, stop, resume, remove }) => {
     };
   }, [isTicking]);
 
+  const beforeUnload = (e: BeforeUnloadEvent) => {
+    e.preventDefault();
+    saveTime(localTime, id);
+
+    e.returnValue = '';
+  };
+
   useEffect(() => {
-    (window as any).addEventListener('beforeunload', () => {
-      const answer = window.confirm('Do you really want to close Tracker?');
-      console.log('closing tab', answer);
-    });
-  });
+    window.addEventListener('beforeunload', beforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', beforeUnload);
+    };
+  }, [beforeUnload]);
 
   return (
     <div>
