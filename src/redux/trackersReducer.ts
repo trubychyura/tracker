@@ -6,10 +6,13 @@ import {
 } from './constants';
 import { ITracker, TrackerActionType } from '../types';
 import { load } from 'redux-localstorage-simple';
+import { setRightTrackerTime } from '../helper';
 
 const savedStore: any = load({ namespace: 'tracker' });
 const initialState: Array<ITracker> =
-  savedStore && savedStore.trackers ? savedStore.trackers : [];
+  savedStore && savedStore.trackers
+    ? setRightTrackerTime(savedStore.trackers)
+    : [];
 
 console.log(initialState, 'trackers');
 const trackersReducer = (
@@ -37,7 +40,11 @@ const trackersReducer = (
     case SAVE_TIME_TRACKER:
       return [...state].map((tracker) => {
         if (tracker.id === action.payload.id) {
-          return { ...tracker, time: action.payload.time };
+          return {
+            ...tracker,
+            time: action.payload.time,
+            closedTime: action.payload.closedTime,
+          };
         }
         return tracker;
       });

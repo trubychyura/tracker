@@ -2,7 +2,7 @@ import {
   ADD_TRACKER,
   DELETE_TRACKER,
   SAVE_TIME_TRACKER,
-  TOGGLE_TRACKER
+  TOGGLE_TRACKER,
 } from './constants';
 import { TrackerActionType } from './../types';
 
@@ -27,10 +27,15 @@ export const deleteTracker = (id: number): TrackerActionType => ({
   },
 });
 
-export const saveTime = (time: number, id: number): TrackerActionType => ({
+export const saveTime = (
+  time: number,
+  id: number,
+  closedTime: number | null,
+): TrackerActionType => ({
   type: SAVE_TIME_TRACKER,
   payload: {
     id,
     time,
+    closedTime,
   },
 });

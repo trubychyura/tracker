@@ -9,6 +9,7 @@ export interface ITracker {
   id: number;
   name: string;
   time: number;
+  closedTime?: number | null;
   isTicking: boolean;
 }
 
@@ -38,6 +39,7 @@ interface ISaveTimeAction {
   payload: {
     id: number;
     time: number;
+    closedTime: number | null;
   };
 }
 

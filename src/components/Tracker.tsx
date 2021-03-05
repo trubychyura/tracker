@@ -1,10 +1,15 @@
 import { FC, useEffect, useState } from 'react';
 import { ITracker, TrackerActionType } from '../types';
+import { convertTime } from '../helper';
 
 interface TrackerProps {
   remove: (id: number) => TrackerActionType;
   toggle: (id: number) => TrackerActionType;
-  saveTime: (time: number, id: number) => TrackerActionType;
+  saveTime: (
+    time: number,
+    id: number,
+    closedTime: number | null,
+  ) => TrackerActionType;
   settings: ITracker;
 }
 
@@ -28,8 +33,8 @@ const Tracker: FC<TrackerProps> = ({ settings, remove, toggle, saveTime }) => {
 
   const beforeUnload = (e: BeforeUnloadEvent) => {
     e.preventDefault();
-    saveTime(localTime, id);
-
+    const closedTime: number | null = isTicking ? Date.now() : null;
+    saveTime(localTime, id, closedTime);
     e.returnValue = '';
   };
 
@@ -43,8 +48,8 @@ const Tracker: FC<TrackerProps> = ({ settings, remove, toggle, saveTime }) => {
 
   return (
     <div>
-      <span>Name: {name}</span>
-      <span>Time: {localTime}</span>
+      <span> {name}</span>
+      <span>Time: {convertTime(localTime)}</span>
       <button onClick={() => toggle(id)}>
         {isTicking ? 'stop' : 'resume'}
       </button>

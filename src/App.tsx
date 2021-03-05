@@ -21,7 +21,11 @@ interface AppProps {
   addTracker: (name: string) => TrackerActionType;
   deleteTracker: (id: number) => TrackerActionType;
   toggleTracker: (id: number) => TrackerActionType;
-  saveTime: (time: number, id: number) => TrackerActionType;
+  saveTime: (
+    time: number,
+    id: number,
+    closedTime: number | null,
+  ) => TrackerActionType;
 }
 
 const App: FC<AppProps> = ({
@@ -36,7 +40,7 @@ const App: FC<AppProps> = ({
       <h1>Tracker</h1>
       <Form addTracker={addTracker} />
       <hr />
-      {trackers.map((tracker: any) => {
+      {trackers.map((tracker) => {
         return (
           <Tracker
             key={tracker.id}
