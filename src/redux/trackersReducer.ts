@@ -1,20 +1,20 @@
+import { load } from 'redux-localstorage-simple';
+import { setRightTrackerTime } from '../helper';
+import { ITracker, TrackerActionType } from '../types';
 import {
   ADD_TRACKER,
   DELETE_TRACKER,
   SAVE_TIME_TRACKER,
   TOGGLE_TRACKER,
 } from './constants';
-import { ITracker, TrackerActionType } from '../types';
-import { load } from 'redux-localstorage-simple';
-import { setRightTrackerTime } from '../helper';
 
 const savedStore: any = load({ namespace: 'tracker' });
+
 const initialState: Array<ITracker> =
   savedStore && savedStore.trackers
     ? setRightTrackerTime(savedStore.trackers)
     : [];
 
-console.log(initialState, 'trackers');
 const trackersReducer = (
   state = initialState,
   action: TrackerActionType,
@@ -22,8 +22,10 @@ const trackersReducer = (
   switch (action.type) {
     case ADD_TRACKER:
       let newTracker = {
-        id: state.length + 1,
-        name: action.payload.name || `No name tracker #${state.length + 1}`,
+        id: state.length ? state.length : 0,
+        name:
+          action.payload.name ||
+          `No name tracker #${state.length ? state.length + 1 : 1}`,
         isTicking: true,
         time: 0,
       };

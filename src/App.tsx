@@ -1,16 +1,36 @@
-import React, { FC } from 'react';
-
+import { FC } from 'react';
 import { connect } from 'react-redux';
-import Form from './components/Form';
-import Tracker from './components/Tracker';
-import { ITracker } from './types';
 import {
   addTracker,
   deleteTracker,
   saveTime,
   toggleTracker,
 } from './redux/actionCreator';
-import { TrackerActionType } from './types';
+import { ITracker, TrackerActionType } from './types';
+
+import { Container, Divider, List, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+import Form from './components/Form';
+import Tracker from './components/Tracker';
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    maxWidth: '560px',
+    padding: '0 5px',
+  },
+  title: {
+    margin: '70px 0',
+    [theme.breakpoints.down('xs')]: {
+      margin: '40px 0',
+    },
+  },
+  warning: {
+    fontSize: '17px',
+    textAlign: 'center',
+    padding: '20px',
+  },
+}));
 
 interface RootState {
   trackers: ITracker[];
@@ -35,23 +55,33 @@ const App: FC<AppProps> = ({
   saveTime,
   toggleTracker,
 }) => {
+  const classes = useStyles();
+
   return (
-    <div className='App'>
-      <h1>Tracker</h1>
+    <Container maxWidth='lg' className={classes.container}>
+      <Typography variant='h1' align='center' className={classes.title}>
+        tracker
+      </Typography>
       <Form addTracker={addTracker} />
-      <hr />
-      {trackers.map((tracker) => {
-        return (
-          <Tracker
-            key={tracker.id}
-            settings={tracker}
-            remove={deleteTracker}
-            toggle={toggleTracker}
-            saveTime={saveTime}
-          />
-        );
-      })}
-    </div>
+      <List>
+        <Divider />
+        {trackers.length ? (
+          [...trackers]
+            .reverse()
+            .map((tracker) => (
+              <Tracker
+                key={tracker.id}
+                settings={tracker}
+                remove={deleteTracker}
+                toggle={toggleTracker}
+                saveTime={saveTime}
+              />
+            ))
+        ) : (
+          <p className={classes.warning}>No trackers yet!</p>
+        )}
+      </List>
+    </Container>
   );
 };
 
