@@ -15,14 +15,14 @@ import RemoveIcon from '@material-ui/icons/RemoveCircleOutline';
 import { green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
-  listItem: () => ({
+  listItem: {
     display: 'flex',
     padding: '5px 10px',
     [theme.breakpoints.down('xs')]: {
       padding: '5px',
       fontSize: '15px',
     },
-  }),
+  },
   listItemContainer: {
     flexGrow: 0,
     flexShrink: 0,
@@ -98,7 +98,10 @@ const Tracker: FC<TrackerProps> = ({ settings, remove, toggle, saveTime }) => {
     <ListItem
       className={classes.listItem}
       divider
-      style={{ color: isTicking ? green[500] : '' }}
+      style={{
+        color: isTicking ? green[500] : '',
+        backgroundColor: isTicking ? 'rgba(213, 219, 156, 0.2)' : '',
+      }}
     >
       <ListItemText
         primary={name}
