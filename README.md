@@ -1,5 +1,5 @@
 # Tracker
 
-[https://trubychyura.github.io/tracker/](gh-page)
+[gh-page]([https://trubychyura.github.io/tracker/)
 
-[https://github.com/trubychyura/tracker/pull/1](pull request]
+[pull request](https://github.com/trubychyura/tracker/pull/1)
